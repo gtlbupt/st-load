@@ -15,14 +15,15 @@ else
     echo "build st-1.9t"; 
     (
         rm -rf ${GLOBAL_DIR_OBJS}/st-1.9 && cd ${GLOBAL_DIR_OBJS} && unzip ../3rdparty/st-1.9.zip && cd st-1.9 && 
-        patch -p0 < ../../3rdparty/patches/1.st.arm.patch &&
-        make EXTRA_CFLAGS="-DMD_HAVE_EPOLL" linux-debug
+        #patch -p0 < ../../3rdparty/patches/1.st.arm.patch &&
+        #make EXTRA_CFLAGS="-DMD_HAVE_EPOLL" linux-debug
+        make darwin-debug
     )
 fi
 # check status
 ret=$?; if [[ $ret -ne 0 ]]; then echo "build st-1.9 failed, ret=$ret"; exit $ret; fi
 if [ ! -f ${GLOBAL_DIR_OBJS}/st-1.9/obj/libst.a ]; then echo "build st-1.9 failed."; exit -1; fi
-if [ ! -f ${GLOBAL_DIR_OBJS}/st-1.9/obj/libst.so ]; then echo "build st-1.9 failed."; exit -1; fi
+#if [ ! -f ${GLOBAL_DIR_OBJS}/st-1.9/obj/libst.so ]; then echo "build st-1.9 failed."; exit -1; fi
 
 # http-parser-2.1
 if [[ -f ${GLOBAL_DIR_OBJS}/http-parser-2.1/http_parser.h && -f ${GLOBAL_DIR_OBJS}/http-parser-2.1/libhttp_parser.a ]]; then
@@ -32,8 +33,8 @@ else
     (
         rm -rf ${GLOBAL_DIR_OBJS}/http-parser-2.1 && cd ${GLOBAL_DIR_OBJS} && unzip ../3rdparty/http-parser-2.1.zip && 
         cd http-parser-2.1 && 
-        sed -i "s/CPPFLAGS_FAST +=.*$/CPPFLAGS_FAST = \$\(CPPFLAGS_DEBUG\)/g" Makefile &&
-        sed -i "s/CFLAGS_FAST =.*$/CFLAGS_FAST = \$\(CFLAGS_DEBUG\)/g" Makefile &&
+        #sed -i "s/CPPFLAGS_FAST +=.*$/CPPFLAGS_FAST = \$\(CPPFLAGS_DEBUG\)/g" Makefile &&
+        #sed -i "s/CFLAGS_FAST =.*$/CFLAGS_FAST = \$\(CFLAGS_DEBUG\)/g" Makefile &&
         make package
     )
 fi
