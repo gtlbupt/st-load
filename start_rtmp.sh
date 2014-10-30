@@ -9,7 +9,7 @@ ret=$?; if [[ 0 -ne ${ret} ]];then echo "get process pid failed, ret=${ret}"; ex
 
 echo "pid=${pid} cpu_id=$cpu_id"
 
-sudo taskset -pc ${cpu_id} ${pid}
-ret=$?; if [[ 0 -ne ${ret} ]];then echo "bind cpu failed, ret=${ret}"; exit ${ret}; fi
+#sudo taskset -pc ${cpu_id} ${pid}
+#ret=$?; if [[ 0 -ne ${ret} ]];then echo "bind cpu failed, ret=${ret}"; exit ${ret}; fi
 
 echo "$pid started bind to ${cpu_id}"
